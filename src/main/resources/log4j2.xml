@@ -1,0 +1,34 @@
+<Configuration status="info" name="example" packages="">
+    <!-- Define an appender that writes to a TCP socket. We use Log4J's
+    SocketAppender, which is documented at https://logging.apache.org/log4j/2.x/manual/appenders.html#SocketAppender.
+
+    You can find the documentation on how to open TCP inputs on Splunk
+    at http://docs.splunk.com/Documentation/Splunk/latest/Data/Monitornetworkports.
+    Note that TCP inputs are *not* the same as Splunk's management port.
+
+    -->
+
+
+    <Appenders>
+        <Console name="Console">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+
+    <Appenders>
+        <Socket name="socket" host="127.0.0.1" port="9997">
+            <PatternLayout pattern="%p: %m%n" charset="UTF-8"/>
+        </Socket>
+    </Appenders>
+    <!-- Define a logger named 'splunk.logger' which writes to the socket appender we defined above. -->
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+        </Root>
+        <Logger name="splunk.logger" level="info">
+            <AppenderRef ref="socket"/>
+        </Logger>
+    </Loggers>
+
+    <Loggers>
+</Configuration>

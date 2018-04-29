@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+      <appender name="SPLUNK_LOCAL" class="com.splunk.logging.TcpAppender">
+        <RemoteHost>127.0.0.1</RemoteHost>
+        <Port>9997</Port>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+
+    <!--<logger name="splunk.logger" additivity="true" level="INFO">-->
+        <!--<appender-ref ref="socket"/>-->
+    <!--</logger>-->
+
+  <!--<appender name="GRAYLOG2" class="com.github.pukkaone.gelf.logback.GelfAppender">-->
+    <!--&lt;!&ndash;  Specify HAProxy &ndash;&gt;-->
+    <!--<graylogHost>172.16.136.82</graylogHost>-->
+    <!--<graylogPort>5554</graylogPort>-->
+    <!--<levelIncluded>true</levelIncluded>-->
+    <!--<locationIncluded>false</locationIncluded>-->
+    <!--<loggerIncluded>true</loggerIncluded>-->
+    <!--<markerIncluded>false</markerIncluded>-->
+    <!--<mdcIncluded>true</mdcIncluded>-->
+    <!--<threadIncluded>true</threadIncluded>-->
+    <!--<facility>java</facility>-->
+    <!--<additionalField>app_name=CBT-RT</additionalField>-->
+    <!--<additionalField>group=CBT</additionalField>-->
+    <!--<additionalField>environment=qa</additionalField>-->
+  <!--</appender>-->
+  <!---->
+  <root level="INFO">          
+    <appender-ref ref="STDOUT" />
+    <appender-ref ref="SPLUNK_LOCAL" />
+     <!--<appender-ref ref="GRAYLOG2"/>-->
+  </root>  
+  
+  
+</configuration>
